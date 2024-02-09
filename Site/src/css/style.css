@@ -1,0 +1,23 @@
+/* 
+  ETML
+  Auteur              : Ethan Schafstall
+  Date                : 09.02.2024
+  Description         : P_Dev_Cafe
+*/
+
+body {
+}
+nav{
+}
+main{
+}
+footer{
+}
+li {
+  display: inline;
+  list-style-type: none;
+}
+#map{
+  width: 60%;
+  height: 60vh;
+}
