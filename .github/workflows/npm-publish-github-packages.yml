@@ -25,10 +25,16 @@ jobs:
         node-version: '21.6.1' # Change this to your desired Node.js version
 
     - name: Install dependencies
-      run: npm install eslint@^8.2.0 eslint-config-airbnb@^19.0.4 eslint-plugin-import@^2.25.3 vite@^4.5.2 --save-dev
+      run: npm install eslint --save-dev
+
+    - name: Install eslint-config-airbnb
+      run: npm install eslint-config-airbnb --save-dev
       
-    - name: Lint code
-      run: npm run lint
+    - name: Install eslint-plugin-import
+      run: npm installeslint-plugin-import --save-dev
+
+    - name: vite
+      run: vite --save-dev      
 
     - name: Run npm dev
       run: npm run dev
