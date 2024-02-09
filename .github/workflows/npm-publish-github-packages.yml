@@ -31,7 +31,7 @@ jobs:
       run: npm install eslint-config-airbnb --save-dev
       
     - name: Install eslint-plugin-import
-      run: npm installeslint-plugin-import --save-dev
+      run: npm install eslint-plugin-import --save-dev
 
     - name: vite
       run: vite --save-dev      
