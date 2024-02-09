@@ -33,8 +33,11 @@ jobs:
     - name: Install eslint-plugin-import
       run: npm install eslint-plugin-import --save-dev
 
-    - name: vite
+    - name: Install vite
       run: npm install vite --save-dev      
-
-    - name: Run npm dev
-      run: npm run dev
+        
+    - name: Install jest
+      run: npm install jest --save-dev 
+      
+    - name: Run tests
+      run: npm test
