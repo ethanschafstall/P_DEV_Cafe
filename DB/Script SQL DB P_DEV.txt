@@ -1,48 +1,48 @@
 CREATE TABLE Product(
-   Id_Product COUNTER,
-   Name VARCHAR(50),
-   Price CURRENCY,
-   PRIMARY KEY(Id_Product)
+   idProduct COUNTER,
+   name VARCHAR(50),
+   price CURRENCY,
+   PRIMARY KEY(idProduct)
 );
 
 CREATE TABLE Client(
-   Id_User COUNTER,
-   Name VARCHAR(50) NOT NULL,
-   First_name VARCHAR(50) NOT NULL,
-   Credit_own INT,
-   PRIMARY KEY(Id_User)
+   idUser COUNTER,
+   name VARCHAR(50) NOT NULL,
+   firstName VARCHAR(50) NOT NULL,
+   creditOwn INT,
+   PRIMARY KEY(idUser)
 );
 
 CREATE TABLE Transaction(
-   Id_Transaction COUNTER,
-   Purchase_date DATETIME,
-   Credit_count SMALLINT,
-   Id_User INT NOT NULL,
-   PRIMARY KEY(Id_Transaction),
-   FOREIGN KEY(Id_User) REFERENCES Client(Id_User)
+   idTransaction COUNTER,
+   purchaseDate DATETIME,
+   creditCount SMALLINT,
+   idUser INT NOT NULL,
+   PRIMARY KEY(idTransaction),
+   FOREIGN KEY(idUser) REFERENCES Client(idUser)
 );
 
 CREATE TABLE Admin(
-   Id_Admin COUNTER,
-   First_name VARCHAR(50) NOT NULL,
-   Name VARCHAR(50) NOT NULL,
-   Password VARCHAR(50) NOT NULL,
-   PRIMARY KEY(Id_Admin)
+   idAdmin COUNTER,
+   firstName VARCHAR(50) NOT NULL,
+   name VARCHAR(50) NOT NULL,
+   password VARCHAR(50) NOT NULL,
+   PRIMARY KEY(idAdmin)
 );
 
 CREATE TABLE Contains(
-   Id_Product INT,
-   Id_Transaction INT,
+   idProduct INT,
+   idTransaction INT,
    Quantity SMALLINT,
-   PRIMARY KEY(Id_Product, Id_Transaction),
-   FOREIGN KEY(Id_Product) REFERENCES Product(Id_Product),
-   FOREIGN KEY(Id_Transaction) REFERENCES Transaction(Id_Transaction)
+   PRIMARY KEY(idProduct, idTransaction),
+   FOREIGN KEY(idProduct) REFERENCES Product(idProduct),
+   FOREIGN KEY(idTransaction) REFERENCES Transaction(idTransaction)
 );
 
 CREATE TABLE be(
-   Id_User INT,
-   Id_Admin INT,
-   PRIMARY KEY(Id_User, Id_Admin),
-   FOREIGN KEY(Id_User) REFERENCES Client(Id_User),
-   FOREIGN KEY(Id_Admin) REFERENCES Admin(Id_Admin)
+   idUser INT,
+   idAdmin INT,
+   PRIMARY KEY(idUser, idAdmin),
+   FOREIGN KEY(idUser) REFERENCES Client(idUser),
+   FOREIGN KEY(idAdmin) REFERENCES Admin(idAdmin)
 );
