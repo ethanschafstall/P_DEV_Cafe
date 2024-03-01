@@ -1,30 +1,65 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-        <!--
-        Auteur              : Ethan Schafstall
-        Date                : 09.02.2024
-        Description         : P_Dev_Cafe1
-        -->
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="src/css/style.css">
-    <script src="/src/main.js" src="/src/keyEvent.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home - P_Dev_Cafe</title>
-  </head>
-  <body>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="src/html/admin.html">Admin</a></li>
 
-      </ul>
-    </nav>
-    <main>
-      <p>Home page.</p>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/style.css">
+    <title>Self Service Machine Café</title>
+</head>
+<body>
+    <section class="connectionSection">
+        <h3 class="connectionText">Vous êtes connecté en tant que : </h3>
+        <select name="scrollingMenu" id="scrollingLisMenu">
+        </select>
+        <section class="nameCreditsSection">
+            <h3 class="nameCredits"></h3>
+        </section>
+    </section>
+    <main id="app">
+        <section class="items">
+            <h4>Acheter un café</h4>
+            <div class="product">
+                <div class="photo">
+                    <img src="src/content/img/Cafe.png">
+                </div>
+                <div class="description">
+                    <span class="name">Café</span>
+                    <span class="price">1 credit</span>
+                    <div class="quantity-area">
+                        <button class="minusButton" onclick="deleteCard(0)">-</button>
+                        <span class="quantity">0</span>
+                        <button class="plusButton" onclick="addCard(0)">+</button>
+                    </div>
+                </div>
+        </section>
+        <section class="summary">
+            <strong>Details commande</strong>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="productName"></td>
+                        <td id="totalProductUnit"></td>
+                    </tr>
+                    <tr>
+                        <th>Total</th>
+                        <th id="totalDisplay">0</th>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="checkCredit()" id="buyButton">Acheter</button>
+        </section>
     </main>
-    <footer>
-      <p>2024 © P_Dev_Cafe | All Rights Reserved</p>
-    </footer>
-  </body>
+    <script src="src/javascript/script.js"></script>
+</body>
+
 </html>
