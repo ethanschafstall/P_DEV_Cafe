@@ -131,6 +131,8 @@ section.summary table tbody tr:last-of-type th {
     margin-right: 3%;
     text-align: right;
 }
-
+.connexionToAdminHidden{
+    display: none;
+}
 
 

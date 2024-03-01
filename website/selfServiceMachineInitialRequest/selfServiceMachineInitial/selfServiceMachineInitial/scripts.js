@@ -13,27 +13,33 @@ let products = [
 let names = [
   {
     name: "Vincent",
-    credits: 5
+    credits: 5,
+    Admin: false
   },
   {
     name: "Benoit",
-    credits: 5
+    credits: 5,
+    Admin: true
   },
   {
     name: "Bernard",
-    credits: 5
+    credits: 5,
+    Admin: false
   },
   {
     name: "Evin",
-    credits: 5
+    credits: 5,
+    Admin: false
   },
   {
     name: "Mathis",
-    credits: 100
+    credits: 100,
+    Admin: false
   },
   {
     name: "Mateen",
-    credits: 42
+    credits: 42,
+    Admin: false
   }
 ];
 
@@ -43,6 +49,8 @@ let productName = document.getElementById("productName");
 let quantity = document.getElementsByClassName("quantity");
 let totalGlobal = 0;
 let nameCredits = document.getElementsByClassName("nameCredits")[0];
+let listNames = document.getElementById("scrollingLisMenu");
+
 
 function addCard(choice) {
   products[choice].quantity++;
@@ -70,7 +78,7 @@ function deleteCard(choice) {
 document.addEventListener("DOMContentLoaded", function () {
   let connectionText = document.getElementsByClassName("connectionText")[0];
   // allocation the html element that id is nameList to a variable
-  let listNames = document.getElementById("scrollingLisMenu");
+  
 
 
   // check if the list of names exists and if it is an array
@@ -90,6 +98,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         let credits = chosenName[0].credits;
         nameCredits.textContent = `${names[user].name} : ${credits} crédits`;
+        // à ajouter
+        if(names[user].Admin === true){
+          displayAdmin();
+        }
+        else{
+          hideAdmin();
+        }
       });
 
       listNames.appendChild(option);
@@ -115,4 +130,13 @@ function checkCredit() {
     }
     updateCredits();
   }
+}
+
+function displayAdmin(){
+  let goToAdminPage = document.getElementsByClassName("connexionToAdminHidden")[0];
+  goToAdminPage.classList.remove("connexionToAdminHidden");
+}
+function hideAdmin(){
+  let hideAdminLink = document.getElementById("connexionToAdmin");
+  hideAdminLink.classList.add("connexionToAdminHidden");
 }
