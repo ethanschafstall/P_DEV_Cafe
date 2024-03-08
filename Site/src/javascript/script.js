@@ -13,44 +13,51 @@ let products = [
 let names = [
   {
     name: "Vincent",
-    credits: 5
+    sold: 5,
+    password: 5555
   },
   {
     name: "Benoit",
-    credits: 5
+    sold: 5,
+    password: 6666
   },
   {
     name: "Bernard",
-    credits: 5
+    sold: 5,
+    password: 7777
   },
   {
     name: "Evin",
-    credits: 5
+    sold: 5,
+    password: 8888
   },
   {
     name: "Mathis",
-    credits: 100
+    sold: 100,
+    password: 1111
   },
   {
     name: "Mateen",
-    credits: 42
+    sold: 42,
+    password: 3333
   }
 ];
 
-let totalDisplay = document.getElementById("totalDisplay");
-let totalProductUnit = document.getElementById("totalProductUnit");
-let productName = document.getElementById("productName");
+let totalaffiche = document.getElementById("totalaffiche");
+let totalpetit = document.getElementById("totalpetit");
+let nomaffiche = document.getElementById("nomaffiche");
 let quantity = document.getElementsByClassName("quantity");
 let totalGlobal = 0;
-let nameCredits = document.getElementsByClassName("nameCredits")[0];
+let namesold = document.getElementsByClassName("namesold")[0];
+let message = document.getElementById('message');
 
 function addCard(choice) {
   products[choice].quantity++;
   total = Math.round(1000 * products[choice].quantity * products[choice].price) / 1000;
   totalGlobal += products[choice].price;
-  totalProductUnit.textContent = Math.round(1000 * total) / 1000;
-  totalDisplay.textContent = Math.round(1000 * totalGlobal) / 1000;
-  productName.textContent = `${products[choice].quantity} x ${products[choice].name}`;
+  totalpetit.textContent = Math.round(1000 * total) / 1000;
+  totalaffiche.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
+  nomaffiche.textContent = `${products[choice].quantity} x ${products[choice].name}`;
   quantity[choice].textContent = products[choice].quantity;
 }
 
@@ -60,59 +67,89 @@ function deleteCard(choice) {
     total = Math.round(1000 * products[choice].quantity * products[choice].price) / 1000;
     totalGlobal -= products[choice].price;
   }
-  totalProductUnit.textContent = Math.round(1000 * total) / 1000;
-  totalDisplay.textContent = Math.round(1000 * totalGlobal) / 1000;
-  productName.textContent = `${products[choice].quantity} x ${products[choice].name}`;
+  totalpetit.textContent = Math.round(1000 * total) / 1000;
+  totalaffiche.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
+  nomaffiche.textContent = `${products[choice].quantity} x ${products[choice].name}`;
   quantity[choice].textContent = products[choice].quantity;
 }
 
-// create li element that contains the names
+function userListeConnect() {
+  let selectElement = document.getElementById('scrollingLisMenu');
+  let selectIndex = selectElement.selectedIndex;
+  let selectedUser = selectElement.options[selectIndex].value;
+  user = names.find(user => user.name === selectedUser);
+
+  if (user) {
+    Swal.fire({
+      title: 'Mot de passe requis',
+      input: 'password',
+      inputPlaceholder: 'Entrez votre mot de passe',
+      showCancelButton: true,
+      confirmButtonText: 'Se connecter',
+      cancelButtonText: 'Annuler',
+      preConfirm: (enteredPassword) => {
+        if (enteredPassword == user.password) {
+          let connectionText = document.querySelector('.connectionText');
+          connectionText.textContent = 'Vous êtes connecté en tant que : ' + selectedUser;
+          updatesold();
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Connexion réussie',
+            text: 'Vous êtes connecté en tant que : ' + selectedUser,
+            confirmButtonText: 'OK'
+          });
+        } 
+        else 
+        {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erreur de mot de passe',
+            text: 'Le mot de passe est incorrect. Veuillez réessayer.'
+          });
+        }
+      }
+    });
+  }
+}
+
+function updatesold() {
+  if (user !== undefined) {
+    let sold = user.sold;
+    namesold.textContent = `${user.name} : ${sold} CHF`;
+  }
+}
+
+function checkCredit() {
+
+  if (user.sold < totalGlobal) {
+    user.sold -= totalGlobal;
+    Swal.fire({
+      icon: 'attention',
+      title: 'Solde négatif',
+      text: 'Attention votre solde est passé en négatif'
+    });
+  } else {
+    user.sold -= totalGlobal;
+  }
+  updatesold();
+}
+
+
 document.addEventListener("DOMContentLoaded", function () {
   let connectionText = document.getElementsByClassName("connectionText")[0];
-  // allocation the html element that id is nameList to a variable
   let listNames = document.getElementById("scrollingLisMenu");
 
-
-  // check if the list of names exists and if it is an array
   if (typeof names !== "undefined" && Array.isArray(names)) {
-    // loop that crate the li element to put the names in
     for (let i = 0; i < names.length; i++) {
       const option = document.createElement("option");
       option.textContent = names[i].name;
       listNames.classList.add("clickableLi");
       option.classList.add("clickableLi");
 
-      listNames.addEventListener("change", function () {
-        user = listNames.selectedIndex;
-        connectionText.textContent = `Vous êtes connecté en tant que : ${names[user].name}`;
-        let chosenName = names.filter((value) => {
-          return value.name === names[user].name
-        });
-        let credits = chosenName[0].credits;
-        nameCredits.textContent = `${names[user].name} : ${credits} crédits`;
-      });
+      listNames.addEventListener("change", userListeConnect);
 
       listNames.appendChild(option);
     }
   }
 });
-
-function updateCredits() {
-  if (user !== null) {
-    let credits = names[user].credits;
-    nameCredits.textContent = `${names[user].name} : ${credits} crédits`;
-  }
-}
-
-function checkCredit() {
-  if (user !== null) {
-    if (names[user].credits < totalGlobal) {
-      names[user].credits -= totalGlobal;
-      window.alert("Attention vous êtes en négatif de crédits");
-    }
-    else {
-      names[user].credits -= totalGlobal;
-    }
-    updateCredits();
-  }
-}

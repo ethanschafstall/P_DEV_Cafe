@@ -93,7 +93,7 @@ section.summary table {
     margin: auto;
 }
 
-section.summary #buyButton {
+section.summary #buttonAchat {
     margin-top: 70%; 
     margin-left: auto; 
     display: block; 
@@ -107,7 +107,7 @@ section.summary #buyButton {
     cursor: pointer;
 }
 
-section.summary #buyButton:hover {
+section.summary #buttonAchat:hover {
     background-color: #5d6936b7;
     transition: 0.2s;
 }
@@ -132,14 +132,6 @@ section.summary table tbody tr:last-of-type th {
     text-align: right;
 }
 
-.minusButton, .plusButton{
-    padding-inline: 20px;
-    padding-block: 14px;
-    background-color: #FDF7E9;
-    border-radius: 8px;
-    border-width: 0px;
-}
 
-.minusButton:hover, .plusButton:hover{
-    background-color: #eee4d9;
-}
+
+
