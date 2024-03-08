@@ -1,0 +1,62 @@
+CREATE TABLE Client(
+   idUser INT AUTO_INCREMENT,
+   identifier VARCHAR(50)  NOT NULL,
+   sold INT,
+   pin TINYINT NOT NULL,
+   isAdmin BOOLEAN NOT NULL,
+   lastTimeConnected DATETIME,
+   PRIMARY KEY(idUser)
+);
+
+CREATE TABLE Transaction(
+   idTransaction INT AUTO_INCREMENT,
+   purchaseDate DATETIME,
+   cost SMALLINT,
+   newSold DECIMAL(19,4),
+   idUser INT NOT NULL,
+   PRIMARY KEY(idTransaction),
+   FOREIGN KEY(idUser) REFERENCES Client(idUser)
+);
+
+CREATE TABLE Storage(
+   IdStock INT AUTO_INCREMENT,
+   purchaseDate DATE,
+   quantity INT,
+   PRIMARY KEY(IdStock)
+);
+
+CREATE TABLE Type(
+   IdType INT AUTO_INCREMENT,
+   name VARCHAR(50) ,
+   PRIMARY KEY(IdType)
+);
+
+CREATE TABLE Product(
+   idProduct INT AUTO_INCREMENT,
+   name VARCHAR(50) ,
+   price DECIMAL(19,4),
+   IdType INT NOT NULL,
+   PRIMARY KEY(idProduct),
+   FOREIGN KEY(IdType) REFERENCES Type(IdType)
+);
+
+CREATE TABLE ProductResource(
+   IdProductResource INT AUTO_INCREMENT,
+   name VARCHAR(50) ,
+   price DECIMAL(19,4),
+   weight INT,
+   IdType INT NOT NULL,
+   IdStock INT NOT NULL,
+   PRIMARY KEY(IdProductResource),
+   FOREIGN KEY(IdType) REFERENCES Type(IdType),
+   FOREIGN KEY(IdStock) REFERENCES Storage(IdStock)
+);
+
+CREATE TABLE Contains(
+   idProduct INT,
+   idTransaction INT,
+   Quantity SMALLINT,
+   PRIMARY KEY(idProduct, idTransaction),
+   FOREIGN KEY(idProduct) REFERENCES Product(idProduct),
+   FOREIGN KEY(idTransaction) REFERENCES Transaction(idTransaction)
+);
