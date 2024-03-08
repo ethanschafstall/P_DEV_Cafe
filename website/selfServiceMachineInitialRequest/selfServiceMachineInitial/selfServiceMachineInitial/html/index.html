@@ -7,15 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Self Service Machine Café</title>
+    <!-- Biliotheque Login -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <section>
-        <a href="../adminPage.html">
+        <a href="../html/adminPage.html">
             <h3 id="connexionToAdmin" class="connexionToAdminHidden">Admin</h3>
-        </a> 
+        </a>
     </section>
     <section class="connectionSection">
         <h3 class="connectionText">Vous êtes connecté en tant que : </h3>
@@ -24,16 +27,16 @@
         </select>
 
         <section class="nameCreditsSection">
-            <h3 class="nameCredits"></h3>
+            <h3 class="namesold"></h3>
         </section>
     </section>
     <main id="app">
-        
+
         <section class="items">
             <h4>Acheter un café</h4>
             <div class="product">
                 <div class="photo">
-                    <img src="img/Cafe.png">
+                    <img src="../img/Cafe.png">
                 </div>
                 <div class="description">
                     <span class="name">Café</span>
@@ -73,7 +76,7 @@
 
     </main>
 
-    <script src="scripts.js"></script>
+    <script type="module" src="../script/scripts.js"></script>
 </body>
 
 </html>
