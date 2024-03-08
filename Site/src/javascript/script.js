@@ -43,9 +43,9 @@ let names = [
   }
 ];
 
-let totalaffiche = document.getElementById("totalaffiche");
-let totalpetit = document.getElementById("totalpetit");
-let nomaffiche = document.getElementById("nomaffiche");
+let totaldisplay = document.getElementById("totaldisplay");
+let totalsmall = document.getElementById("totalsmall");
+let displayname = document.getElementById("displayname");
 let quantity = document.getElementsByClassName("quantity");
 let totalGlobal = 0;
 let namesold = document.getElementsByClassName("namesold")[0];
@@ -55,9 +55,9 @@ function addCard(choice) {
   products[choice].quantity++;
   total = Math.round(1000 * products[choice].quantity * products[choice].price) / 1000;
   totalGlobal += products[choice].price;
-  totalpetit.textContent = Math.round(1000 * total) / 1000;
-  totalaffiche.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
-  nomaffiche.textContent = `${products[choice].quantity} x ${products[choice].name}`;
+  totalsmall.textContent = Math.round(1000 * total) / 1000;
+  totaldisplay.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
+  displayname.textContent = `${products[choice].quantity} x ${products[choice].name}`;
   quantity[choice].textContent = products[choice].quantity;
 }
 
@@ -67,9 +67,9 @@ function deleteCard(choice) {
     total = Math.round(1000 * products[choice].quantity * products[choice].price) / 1000;
     totalGlobal -= products[choice].price;
   }
-  totalpetit.textContent = Math.round(1000 * total) / 1000;
-  totalaffiche.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
-  nomaffiche.textContent = `${products[choice].quantity} x ${products[choice].name}`;
+  totalsmall.textContent = Math.round(1000 * total) / 1000;
+  totaldisplay.textContent = `${Math.round(1000 * totalGlobal) / 1000} CHF`;
+  displayname.textContent = `${products[choice].quantity} x ${products[choice].name}`;
   quantity[choice].textContent = products[choice].quantity;
 }
 
@@ -125,7 +125,7 @@ function checkCredit() {
   if (user.sold < totalGlobal) {
     user.sold -= totalGlobal;
     Swal.fire({
-      icon: 'attention',
+      icon: 'warning',
       title: 'Solde négatif',
       text: 'Attention votre solde est passé en négatif'
     });
