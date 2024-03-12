@@ -132,6 +132,21 @@ section.summary table tbody tr:last-of-type th {
     text-align: right;
 }
 
+#scrollingLisMenu {
+    font-family: 'Open Sans', sans-serif; 
+    font-size: 14px; 
+    border: 2px solid #99b480; 
+    border-radius: 8px; 
+    padding: 8px; 
+    background-color: #c8d5b9; 
+    color: black; 
+}
+
+#scrollingLisMenu option {
+    background-color: white; 
+    color: black; 
+}
+
 
 
 
