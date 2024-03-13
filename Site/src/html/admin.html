@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="../javascript/script.js"></script>
   <title>Admin - P_Dev_Cafe</title>
   <!-- Bibliothèque SweetAlert -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -18,39 +17,76 @@
 </head>
 
 <body>
- 
-  <main>
-    <a href="/index.html" ">Page Achat</a>
+  <a href="/index.html">Page Achat</a>
+  <div class="container">
+    <div class="section" id="userSection">
+      <main>
+        <h1>Gestion User</h1>
+        <label>Sélectionnez un utilisateur :</label>
+        <select name="userList" id="userList"></select>
 
-    <h1>Gestion User</h1>
-    <label>Sélectionnez un utilisateur :</label>
-    <select name="userList" id="userList"></select>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="addBalance" />
+          <div class="input-group-append">
+            <button class="btn btn-success" type="button" onclick="addBalance()">Ajouter Solde</button>
+          </div>
+        </div>
 
-    <div class="input-group mb-3">
-      <input type="number" class="form-control" id="addBalance" />
-      <div class="input-group-append">
-        <button class="btn btn-success" type="button" onclick="addBalance()">Ajouter Solde</button>
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="subtractBalance" />
+          <div class="input-group-append">
+            <button class="btn btn-danger" type="button" onclick="subtractBalance()">Enlever Solde</button>
+          </div>
+        </div>
+
+
+      </main>
+
+      <div id="userInfo">
+        <h2>Informations Utilisateur</h2>
+        <p>Nom : <span id="userName"></span></p>
+        <p>Solde actuel : <span id="userBalance"></span></p>
+        <p>Café acheté : <span id="userNumberCafe"></span></p>
       </div>
     </div>
 
-    <div class="input-group mb-3">
-      <input type="number" class="form-control" id="subtractBalance" />
-      <div class="input-group-append">
-        <button class="btn btn-danger" type="button" onclick="subtractBalance()">Enlever Solde</button>
+    <div class="section" id="cafeSection">
+      <div id="cafgest">
+        <h1>Gestion Café</h1>
+        <label>Sélectionnez un café :</label>
+        <select name="cafeList" id="cafeList"></select>
+
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="addCafeQuantity" />
+          <div class="input-group-append">
+            <button class="btn btn-success" type="button" onclick="addCafe()">Ajouter Café</button>
+          </div>
+        </div>
+
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" id="subtractCafeQuantity" />
+          <div class="input-group-append">
+            <button class="btn btn-danger" type="button" onclick="subtractCafe()">Enlever Café</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="cafeInfo">
+        <h2>Informations Café</h2>
+        <p>Nom : <span id="cafeName"></span></p>
+        <p>Prix : <span id="cafePrice"></span> CHF</p>
+        <p>Quantité en stock : <span id="cafeQuantity"></span> kg</p>
+        <p>Type : <span id="cafeType"></span></p>
+        <p>Description : <span id="cafeDescription"></span></p>
       </div>
     </div>
-
-
-  </main>
-
-  <div id="userInfo">
-    <h2>Informations Utilisateur</h2>
-    <p>Nom : <span id="userName"></span></p>
-    <p>Solde actuel : <span id="userBalance"></span></p>
   </div>
 
   <footer>
+
   </footer>
+
+  <script src="../javascript/script.js"></script>
 </body>
 
 </html>

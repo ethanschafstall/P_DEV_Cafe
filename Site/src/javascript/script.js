@@ -1,4 +1,5 @@
 let user;
+let cafe;
 
 let products = [
   {
@@ -10,42 +11,86 @@ let products = [
   }
 ];
 
+let cafes = [
+  {
+    name: "Espresso",
+    type: "Robusta",
+    price: 2.5,
+    kg: 1,  
+    description: "Un café concentré avec une saveur intense."
+  },
+  {
+    name: "Cappuccino",
+    type: "Arabica",
+    price: 3.0,
+    kg: 1,  
+    description: "Un mélange équilibré de café, de lait et de mousse de lait."
+  },
+  {
+    name: "Latte Macchiato",
+    type: "Arabica",
+    price: 3.5,
+    kg: 1,  
+    description: "Café avec beaucoup de lait et une petite quantité de mousse de lait."
+  },
+  {
+    name: "Mocha",
+    type: "Arabica",
+    price: 4.0,
+    kg: 1,  
+    description: "Café au chocolat avec du lait et de la crème fouettée."
+  },
+  {
+    name: "Cold Brew",
+    type: "Arabica",
+    price: 3.8,
+    kg: 1, 
+    description: "Café infusé à froid pour une saveur douce et rafraîchissante."
+  }
+];
+
 let names = [
   {
     name: "Vincent",
     sold: 5,
     password: 5555,
-    admin: false
+    admin: false,
+    nmbcafe: 0
   },
   {
     name: "Benoit",
     sold: 5,
     password: 6666,
-    admin: true
+    admin: true,
+    nmbcafe: 0
   },
   {
     name: "Bernard",
     sold: 5,
     password: 7777,
-    admin: false
+    admin: false,
+    nmbcafe: 0
   },
   {
     name: "Evin",
     sold: 5,
     password: 8888,
-    admin: false
+    admin: false,
+    nmbcafe: 0
   },
   {
     name: "Mathis",
     sold: 100,
     password: 1111,
-    admin: false
+    admin: false,
+    nmbcafe: 0
   },
   {
     name: "Mateen",
     sold: 42,
     password: 3333,
-    admin: false
+    admin: false,
+    nmbcafe: 0
   }
 ];
 
@@ -144,7 +189,9 @@ function checkCredit() {
   } else {
     user.sold -= totalGlobal;
   }
+  user.nmbcafe += totalGlobal;
   updatesold();
+  displayUserInfo();
 }
 
 
@@ -156,8 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let i = 0; i < names.length; i++) {
       const option = document.createElement("option");
       option.textContent = names[i].name;
-      listNames.classList.add("clickableLi");
-      option.classList.add("clickableLi");
 
       listNames.addEventListener("change", userListeConnect);
 
@@ -204,6 +249,7 @@ function addBalance() {
     });
   }
   displayUserInfo();
+  updatesold();
 }
 
 function subtractBalance() {
@@ -248,6 +294,7 @@ function subtractBalance() {
     });
   }
   displayUserInfo();
+  updatesold();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -276,9 +323,11 @@ function displayUserInfo() {
   if (user) {
     let userNameElement = document.getElementById('userName');
     let userBalanceElement = document.getElementById('userBalance');
+    let userNumberCafeElement = document.getElementById('userNumberCafe');
 
     userNameElement.textContent = user.name;
     userBalanceElement.textContent = `${user.sold} CHF`;
+    userNumberCafe.textContent = user.nmbcafe;
 
     if (user.admin) {
       let adminButton = document.getElementById('adminButton');
@@ -288,3 +337,119 @@ function displayUserInfo() {
   }
 }
 
+//////////////////////////////////////////////////////////// Admin cafe ///////////////////////////////////////////////////////////////
+
+
+let selectedCafe;
+let cafeList = document.getElementById("cafeList");
+let cafeNameElement = document.getElementById('cafeName');
+let cafePriceElement = document.getElementById('cafePrice');
+let cafeQuantityElement = document.getElementById('cafeQuantity');
+let cafeTypeElement = document.getElementById('cafeType');
+let cafeDescriptionElement = document.getElementById('cafeDescription');
+
+function addCafe() {
+  let selectedCafeIndex = cafeList.selectedIndex;
+  let selectedCafe = cafes[selectedCafeIndex];  // Déplacer la déclaration à l'intérieur de la fonction
+
+  if (selectedCafe) {
+    let addCafeQuantityInput = document.getElementById('addCafeQuantity');
+    let quantityToAdd = parseInt(addCafeQuantityInput.value);
+
+    if (!isNaN(quantityToAdd) && quantityToAdd > 0) {
+      selectedCafe.kg += quantityToAdd;
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Café ajouté avec succès : ' + selectedCafe.name,
+        text: `Nouvelle quantité en stock : ${selectedCafe.kg} kg`,
+        confirmButtonText: 'OK'
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Attention',
+        text: 'Veuillez entrer une quantité valide à ajouter'
+      });
+    }
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Café non trouvé'
+    });
+  }
+  displayCafeInfo();
+}
+
+function subtractCafe() {
+  let selectedCafeIndex = cafeList.selectedIndex;
+  let selectedCafe = cafes[selectedCafeIndex];  // Déplacer la déclaration à l'intérieur de la fonction
+
+  if (selectedCafe) {
+    let subtractCafeQuantityInput = document.getElementById('subtractCafeQuantity');
+    let quantityToSubtract = parseInt(subtractCafeQuantityInput.value);
+
+    if (!isNaN(quantityToSubtract) && quantityToSubtract > 0) {
+      if (selectedCafe.kg >= quantityToSubtract) {
+        selectedCafe.kg -= quantityToSubtract;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Café retiré avec succès : ' + selectedCafe.name,
+          text: `Nouvelle quantité en stock : ${selectedCafe.kg} kg`,
+          confirmButtonText: 'OK'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Stock insuffisant',
+          text: 'La quantité demandée est supérieure à celle en stock.'
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Attention',
+        text: 'Veuillez entrer une quantité valide à soustraire'
+      });
+    }
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Café non trouvé'
+    });
+  }
+  displayCafeInfo();
+}
+
+function displayCafeInfo() {
+  let selectedCafeIndex = cafeList.selectedIndex;
+  selectedCafe = cafes[selectedCafeIndex];
+
+  if (selectedCafe) {
+    cafeNameElement.textContent = `${selectedCafe.name}`;
+    cafePriceElement.textContent = `${selectedCafe.price}`;
+    cafeQuantityElement.textContent = `${selectedCafe.kg}`;
+    cafeTypeElement.textContent = `${selectedCafe.type}`;
+    cafeDescriptionElement.textContent = `${selectedCafe.description}`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  let cafeList = document.getElementById("cafeList");
+
+  if (cafeList && typeof cafes !== "undefined" && Array.isArray(cafes)) {
+    for (let i = 0; i < cafes.length; i++) {
+      const option = document.createElement("option");
+      option.textContent = cafes[i].name;
+      option.value = cafes[i].name;
+      cafeList.appendChild(option);
+    }
+
+    cafeList.addEventListener("change", function () {
+      displayCafeInfo();
+    });
+  }
+});
