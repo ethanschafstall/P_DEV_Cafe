@@ -15,37 +15,37 @@ let names = [
     name: "Vincent",
     sold: 5,
     password: 5555,
-    admin:false
+    admin: false
   },
   {
     name: "Benoit",
     sold: 5,
     password: 6666,
-    admin:true
+    admin: true
   },
   {
     name: "Bernard",
     sold: 5,
     password: 7777,
-    admin:false
+    admin: false
   },
   {
     name: "Evin",
     sold: 5,
     password: 8888,
-    admin:false
+    admin: false
   },
   {
     name: "Mathis",
     sold: 100,
     password: 1111,
-    admin:false
+    admin: false
   },
   {
     name: "Mateen",
     sold: 42,
     password: 3333,
-    admin:false
+    admin: false
   }
 ];
 
@@ -105,9 +105,8 @@ function userListeConnect() {
             text: 'Vous êtes connecté en tant que : ' + selectedUser,
             confirmButtonText: 'OK'
           });
-        } 
-        else 
-        {
+        }
+        else {
           Swal.fire({
             icon: 'error',
             title: 'Erreur de mot de passe',
@@ -125,13 +124,6 @@ function userListeConnect() {
   }
 }
 
-
-function redirectToAdminPage() {
-
-  if (user && user.admin) {
-    window.location.href = "./admin.html";
-  } 
-}
 
 function updatesold() {
   if (user !== undefined) {
@@ -173,3 +165,126 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+
+//////////////////////////////////////////////////////////// Admin ///////////////////////////////////////////////////////////////
+
+
+function addBalance() {
+  let selectElement = document.getElementById('userList');
+  let selectIndex = selectElement.selectedIndex;
+  let selectedUser = selectElement.options[selectIndex].value;
+  let user = names.find(user => user.name === selectedUser);
+  let addBalanceInput = document.getElementById('addBalance');
+
+  if (user) {
+    let amountToAdd = parseFloat(addBalanceInput.value);
+
+    if (!isNaN(amountToAdd) && amountToAdd > 0) {
+      user.sold += amountToAdd;
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Solde ajouté avec succès pour : ' + user.name,
+        text: `Nouveau solde : ${user.sold} CHF`,
+        confirmButtonText: 'OK'
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Attention',
+        text: 'Veuillez entrer un montant valide à ajouter'
+      });
+    }
+  }
+  else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Utilisateur non trouvé'
+    });
+  }
+  displayUserInfo();
+}
+
+function subtractBalance() {
+  let selectElement = document.getElementById('userList');
+  let selectIndex = selectElement.selectedIndex;
+  let selectedUser = selectElement.options[selectIndex].value;
+  let user = names.find(user => user.name === selectedUser);
+  let subtractBalanceInput = document.getElementById('subtractBalance'); // Ajoutez l'ID correspondant dans votre HTML
+
+  if (user) {
+    let amountToSubtract = parseFloat(subtractBalanceInput.value);
+
+    if (!isNaN(amountToSubtract) && amountToSubtract > 0) {
+      if (user.sold >= amountToSubtract) {
+        user.sold -= amountToSubtract;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Solde soustrait avec succès pour : ' + user.name,
+          text: `Nouveau solde : ${user.sold} CHF`,
+          confirmButtonText: 'OK'
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Solde insuffisant',
+          text: 'Le solde de l\'utilisateur est inférieur au montant à soustraire.'
+        });
+      }
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Attention',
+        text: 'Veuillez entrer un montant valide à soustraire'
+      });
+    }
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Erreur',
+      text: 'Utilisateur non trouvé'
+    });
+  }
+  displayUserInfo();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  let listNames = document.getElementById("userList");
+
+  if (listNames && typeof names !== "undefined" && Array.isArray(names)) {
+    for (let i = 0; i < names.length; i++) {
+      const option = document.createElement("option");
+      option.textContent = names[i].name;
+      option.value = names[i].name;
+
+      listNames.addEventListener("change", displayUserInfo);
+
+      listNames.appendChild(option);
+    }
+  }
+});
+
+
+function displayUserInfo() {
+  let selectElement = document.getElementById('userList');
+  let selectIndex = selectElement.selectedIndex;
+  let selectedUser = selectElement.options[selectIndex].value;
+  user = names.find(user => user.name === selectedUser);
+
+  if (user) {
+    let userNameElement = document.getElementById('userName');
+    let userBalanceElement = document.getElementById('userBalance');
+
+    userNameElement.textContent = user.name;
+    userBalanceElement.textContent = `${user.sold} CHF`;
+
+    if (user.admin) {
+      let adminButton = document.getElementById('adminButton');
+      adminButton.removeAttribute('disabled');
+      adminButton.style.display = 'inline-block';
+    }
+  }
+}
+
