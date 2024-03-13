@@ -14,32 +14,38 @@ let names = [
   {
     name: "Vincent",
     sold: 5,
-    password: 5555
+    password: 5555,
+    admin:false
   },
   {
     name: "Benoit",
     sold: 5,
-    password: 6666
+    password: 6666,
+    admin:true
   },
   {
     name: "Bernard",
     sold: 5,
-    password: 7777
+    password: 7777,
+    admin:false
   },
   {
     name: "Evin",
     sold: 5,
-    password: 8888
+    password: 8888,
+    admin:false
   },
   {
     name: "Mathis",
     sold: 100,
-    password: 1111
+    password: 1111,
+    admin:false
   },
   {
     name: "Mateen",
     sold: 42,
-    password: 3333
+    password: 3333,
+    admin:false
   }
 ];
 
@@ -108,9 +114,23 @@ function userListeConnect() {
             text: 'Le mot de passe est incorrect. Veuillez réessayer.'
           });
         }
+
+        if (user.admin) {
+          let adminButton = document.getElementById('adminButton');
+          adminButton.removeAttribute('disabled');
+          adminButton.style.display = 'inline-block';
+        }
       }
     });
   }
+}
+
+
+function redirectToAdminPage() {
+
+  if (user && user.admin) {
+    window.location.href = "./admin.html";
+  } 
 }
 
 function updatesold() {
