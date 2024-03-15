@@ -506,3 +506,33 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+function createCafe() {
+
+  
+  Swal.fire({
+    title: 'Créer un nouveau café',
+    html: `
+      <input id="username" class="swal2-input" placeholder="Nom">
+      <input id="type" class="swal2-input" placeholder="Type">
+      <input id="price" class="swal2-input" placeholder="Prix">
+      <input id="description" class="swal2-input" placeholder="Description">
+      
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Créer',
+    cancelButtonText: 'Annuler',
+    showLoaderOnConfirm: true,
+
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+
+      Swal.fire({
+        title: 'Succès',
+        text: 'Café créé avec succès',
+        icon: 'success'
+      });
+    }
+  });
+}
