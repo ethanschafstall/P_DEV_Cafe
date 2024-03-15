@@ -16,42 +16,42 @@ let cafes = [
     name: "",
     type: "",
     price: "",
-    kg: "",  
+    kg: "",
     description: ""
   },
   {
     name: "Espresso",
     type: "Robusta",
     price: 2.5,
-    kg: 1,  
+    kg: 1,
     description: "Un café concentré avec une saveur intense."
   },
   {
     name: "Cappuccino",
     type: "Arabica",
     price: 3.0,
-    kg: 1,  
+    kg: 1,
     description: "Un mélange équilibré de café, de lait et de mousse de lait."
   },
   {
     name: "Latte Macchiato",
     type: "Arabica",
     price: 3.5,
-    kg: 1,  
+    kg: 1,
     description: "Café avec beaucoup de lait et une petite quantité de mousse de lait."
   },
   {
     name: "Mocha",
     type: "Arabica",
     price: 4.0,
-    kg: 1,  
+    kg: 1,
     description: "Café au chocolat avec du lait et de la crème fouettée."
   },
   {
     name: "Cold Brew",
     type: "Arabica",
     price: 3.8,
-    kg: 1, 
+    kg: 1,
     description: "Café infusé à froid pour une saveur douce et rafraîchissante."
   }
 ];
@@ -302,6 +302,77 @@ function subtractBalance() {
   updatesold();
 }
 
+
+
+function displayUserInfo() {
+  let selectElement = document.getElementById('userList');
+  let selectIndex = selectElement.selectedIndex;
+  let selectedUser = selectElement.options[selectIndex].value;
+  user = names.find(user => user.name === selectedUser);
+
+  if (user) {
+    let userNameElement = document.getElementById('userName');
+    let userPassword = document.getElementById('userPassword');
+    let userBalanceElement = document.getElementById('userBalance');
+    let userNumberCafeElement = document.getElementById('userNumberCafe');
+
+    userNameElement.textContent = user.name;
+    userPassword.textContent = user.password;
+    userBalanceElement.textContent = `${user.sold} CHF`;
+    userNumberCafe.textContent = user.nmbcafe;
+
+    if (user.admin) {
+      let adminButton = document.getElementById('adminButton');
+      adminButton.removeAttribute('disabled');
+      adminButton.style.display = 'inline-block';
+    }
+  }
+}
+
+function createUser() {
+  let username, password;
+  
+  Swal.fire({
+    title: 'Créer un nouvel utilisateur',
+    html: `
+      <input id="username" class="swal2-input" placeholder="Nom d'utilisateur">
+      <input id="password" type="password" class="swal2-input" placeholder="Mot de passe">
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Créer',
+    cancelButtonText: 'Annuler',
+    showLoaderOnConfirm: true,
+    preConfirm: () => {
+      username = Swal.getPopup().querySelector('#username').value;
+      password = Swal.getPopup().querySelector('#password').value;
+
+      if (!username || !password) {
+        Swal.showValidationMessage('Veuillez remplir tous les champs');
+        return false;
+      }
+      return true;
+    }
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+      const newUser = {
+        name: username,
+        sold: 0,
+        password: password,
+        admin: false,
+        nmbcafe: 0
+      };
+
+      names.push(newUser);
+      Swal.fire({
+        title: 'Succès',
+        text: 'Utilisateur créé avec succès',
+        icon: 'success'
+      });
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   let listNames = document.getElementById("userList");
 
@@ -319,29 +390,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function displayUserInfo() {
-  let selectElement = document.getElementById('userList');
-  let selectIndex = selectElement.selectedIndex;
-  let selectedUser = selectElement.options[selectIndex].value;
-  user = names.find(user => user.name === selectedUser);
-
-  if (user) {
-    let userNameElement = document.getElementById('userName');
-    let userBalanceElement = document.getElementById('userBalance');
-    let userNumberCafeElement = document.getElementById('userNumberCafe');
-
-    userNameElement.textContent = user.name;
-    userBalanceElement.textContent = `${user.sold} CHF`;
-    userNumberCafe.textContent = user.nmbcafe;
-
-    if (user.admin) {
-      let adminButton = document.getElementById('adminButton');
-      adminButton.removeAttribute('disabled');
-      adminButton.style.display = 'inline-block';
-    }
-  }
-}
-
 //////////////////////////////////////////////////////////// Admin cafe ///////////////////////////////////////////////////////////////
 
 
@@ -355,7 +403,7 @@ let cafeDescriptionElement = document.getElementById('cafeDescription');
 
 function addCafe() {
   let selectedCafeIndex = cafeList.selectedIndex;
-  let selectedCafe = cafes[selectedCafeIndex]; 
+  let selectedCafe = cafes[selectedCafeIndex];
 
   if (selectedCafe) {
     let addCafeQuantityInput = document.getElementById('addCafeQuantity');
