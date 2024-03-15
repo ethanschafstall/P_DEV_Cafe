@@ -13,6 +13,13 @@ let products = [
 
 let cafes = [
   {
+    name: "",
+    type: "",
+    price: "",
+    kg: "",  
+    description: ""
+  },
+  {
     name: "Espresso",
     type: "Robusta",
     price: 2.5,
@@ -51,11 +58,9 @@ let cafes = [
 
 let names = [
   {
-    name: "Vincent",
-    sold: 5,
-    password: 5555,
-    admin: false,
-    nmbcafe: 0
+    name: "",
+    sold: "",
+    nmbcafe: ""
   },
   {
     name: "Benoit",
@@ -350,7 +355,7 @@ let cafeDescriptionElement = document.getElementById('cafeDescription');
 
 function addCafe() {
   let selectedCafeIndex = cafeList.selectedIndex;
-  let selectedCafe = cafes[selectedCafeIndex];  // Déplacer la déclaration à l'intérieur de la fonction
+  let selectedCafe = cafes[selectedCafeIndex]; 
 
   if (selectedCafe) {
     let addCafeQuantityInput = document.getElementById('addCafeQuantity');
@@ -384,7 +389,7 @@ function addCafe() {
 
 function subtractCafe() {
   let selectedCafeIndex = cafeList.selectedIndex;
-  let selectedCafe = cafes[selectedCafeIndex];  // Déplacer la déclaration à l'intérieur de la fonction
+  let selectedCafe = cafes[selectedCafeIndex];
 
   if (selectedCafe) {
     let subtractCafeQuantityInput = document.getElementById('subtractCafeQuantity');
