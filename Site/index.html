@@ -7,35 +7,48 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="./src/css/style.css">
     <title>Self Service Machine Café</title>
+    <!-- Biliotheque Login -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Biliotheque Liste -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
+
 <body>
     <section class="connectionSection">
         <h3 class="connectionText">Vous êtes connecté en tant que : </h3>
+    
         <select name="scrollingMenu" id="scrollingLisMenu">
         </select>
+    
         <section class="nameCreditsSection">
-            <h3 class="nameCredits"></h3>
+            <h3 class="namesold"></h3>
         </section>
+
+        <a id="adminButton" href="./src/html/admin.html" style="display: none;">Page Admin</a>
     </section>
     <main id="app">
+
         <section class="items">
             <h4>Acheter un café</h4>
             <div class="product">
                 <div class="photo">
-                    <img src="src/content/img/Cafe.png">
+                    <img src="./src/content/img/Cafe.png">
                 </div>
                 <div class="description">
                     <span class="name">Café</span>
-                    <span class="price">1 credit</span>
+                    <span class="price">1 CHF</span>
                     <div class="quantity-area">
-                        <button class="minusButton" onclick="deleteCard(0)">-</button>
+                        <button onclick="deleteCard(0)">-</button>
                         <span class="quantity">0</span>
-                        <button class="plusButton" onclick="addCard(0)">+</button>
+                        <button onclick="addCard(0)">+</button>
                     </div>
                 </div>
         </section>
+
         <section class="summary">
             <strong>Details commande</strong>
             <table>
@@ -47,19 +60,23 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td id="productName"></td>
-                        <td id="totalProductUnit"></td>
+                        <td id="displayname"></td>
+                        <td id="totalsmall"></td>
                     </tr>
+
                     <tr>
                         <th>Total</th>
-                        <th id="totalDisplay">0</th>
+                        <th id="totaldisplay">0</th>
                     </tr>
                 </tbody>
             </table>
-            <button onclick="checkCredit()" id="buyButton">Acheter</button>
+
+            <button onclick="checkCredit()" id="buttonAchat">Acheter</button>
         </section>
+
     </main>
-    <script src="src/javascript/script.js"></script>
+
+    <script src="./src/javascript/script.js"></script>
 </body>
 
 </html>

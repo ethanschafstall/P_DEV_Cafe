@@ -93,7 +93,7 @@ section.summary table {
     margin: auto;
 }
 
-section.summary #buyButton {
+section.summary #buttonAchat {
     margin-top: 70%; 
     margin-left: auto; 
     display: block; 
@@ -107,7 +107,7 @@ section.summary #buyButton {
     cursor: pointer;
 }
 
-section.summary #buyButton:hover {
+section.summary #buttonAchat:hover {
     background-color: #5d6936b7;
     transition: 0.2s;
 }
@@ -126,20 +126,63 @@ section.summary table tbody tr:last-of-type th {
     cursor: pointer;
 }
 
-.nameCreditsSection{
+
+#scrollingLisMenu option {
+    background-color: white; 
+    color: black; 
+}
+
+.connectionText {
+    font-size: 18px; 
+    margin-bottom: 1%px; 
+    border: 2px solid #99b480;
+    padding: 0.5%;
+    width: 20%;
+    margin: auto;
+    border-radius: 8px; 
+    background-color: #c8d5b9; 
+    color: #606c38; 
+}
+
+.nameCreditsSection {
     margin-top: -14%;
     margin-right: 3%;
     text-align: right;
 }
 
-.minusButton, .plusButton{
-    padding-inline: 20px;
-    padding-block: 14px;
-    background-color: #FDF7E9;
-    border-radius: 8px;
-    border-width: 0px;
+.namesold {
+    font-size: 16px; 
+    color:black;
 }
 
-.minusButton:hover, .plusButton:hover{
-    background-color: #eee4d9;
+#scrollingLisMenu {
+    margin-top: 1%;
+
+    font-family: 'Open Sans', sans-serif; 
+    font-size: 14px; 
+    border: 2px solid #99b480; 
+    border-radius: 8px; 
+    padding: 8px; 
+    background-color: #c8d5b9; 
+    color: black; 
 }
+
+a {
+    text-decoration: none;
+    color: white;
+    background-color: #606c38;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    position: fixed;
+    top: 4%;
+    left: 2%;
+}
+
+a:hover {
+    background-color: #5d6936b7;
+}
+
+
+
